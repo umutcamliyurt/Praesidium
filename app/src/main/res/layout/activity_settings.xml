@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#080A0F"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp">
+
+            <View
+                android:layout_width="3dp"
+                android:layout_height="20dp"
+                android:background="#B8860B"
+                android:layout_marginEnd="10dp"/>
+
+            <TextView
+                android:text="DETECTION SETTINGS"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#E8D5A3"
+                android:letterSpacing="0.2"
+                android:fontFamily="serif"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:text="ADB CONNECTION"
+            android:textSize="8sp"
+            android:textColor="#4A5568"
+            android:letterSpacing="0.4"
+            android:layout_marginBottom="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:padding="12dp"
+            android:background="@drawable/card_background">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:text="Detect ADB connection"
+                    android:textSize="13sp"
+                    android:textColor="#E2E8F0"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+                <Switch
+                    android:id="@+id/switchAdb"
+                    android:thumbTint="#B8860B"
+                    android:trackTint="#2D3748"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:text="ACTION"
+                android:textSize="8sp"
+                android:textColor="#4A5568"
+                android:letterSpacing="0.3"
+                android:layout_marginBottom="4dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <android.widget.Spinner
+                android:id="@+id/spinnerAdbAction"
+                android:entries="@array/threat_actions"
+                android:backgroundTint="#B8860B"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:text="BRUTE FORCE UNLOCK"
+            android:textSize="8sp"
+            android:textColor="#4A5568"
+            android:letterSpacing="0.4"
+            android:layout_marginBottom="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:padding="12dp"
+            android:background="@drawable/card_background">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:text="Detect failed unlock attempts"
+                    android:textSize="13sp"
+                    android:textColor="#E2E8F0"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+                <Switch
+                    android:id="@+id/switchBruteForce"
+                    android:thumbTint="#B8860B"
+                    android:trackTint="#2D3748"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:text="Trigger after N failed attempts"
+                    android:textSize="12sp"
+                    android:textColor="#4A5568"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+                <EditText
+                    android:id="@+id/etFailedAttempts"
+                    android:inputType="number"
+                    android:textColor="#E2E8F0"
+                    android:textSize="13sp"
+                    android:background="@drawable/input_background"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:width="52dp"
+                    android:maxLength="2"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:text="ACTION"
+                android:textSize="8sp"
+                android:textColor="#4A5568"
+                android:letterSpacing="0.3"
+                android:layout_marginBottom="4dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <android.widget.Spinner
+                android:id="@+id/spinnerBruteForceAction"
+                android:entries="@array/threat_actions"
+                android:backgroundTint="#B8860B"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:text="ADB FALLBACK DETECTION"
+            android:textSize="8sp"
+            android:textColor="#4A5568"
+            android:letterSpacing="0.4"
+            android:layout_marginBottom="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:padding="12dp"
+            android:background="@drawable/card_background">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="Detect adbd fd spike"
+                        android:textSize="13sp"
+                        android:textColor="#E2E8F0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:text="Fallback when TCP check is blocked"
+                        android:textSize="10sp"
+                        android:textColor="#4A5568"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+                <Switch
+                    android:id="@+id/switchFdSpike"
+                    android:thumbTint="#B8860B"
+                    android:trackTint="#2D3748"
+                    android:layout_marginStart="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#1A2035"
+                android:layout_marginBottom="10dp"/>
+
+            <TextView
+                android:text="ACTION"
+                android:textSize="8sp"
+                android:textColor="#4A5568"
+                android:letterSpacing="0.3"
+                android:layout_marginBottom="4dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <android.widget.Spinner
+                android:id="@+id/spinnerFdSpikeAction"
+                android:entries="@array/threat_actions"
+                android:backgroundTint="#B8860B"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btnSaveSettings"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@drawable/btn_primary"
+            android:clickable="true"
+            android:focusable="true">
+
+            <TextView
+                android:text="SAVE SETTINGS"
+                android:textSize="13sp"
+                android:textColor="#0A0C12"
+                android:textStyle="bold"
+                android:letterSpacing="0.1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>
