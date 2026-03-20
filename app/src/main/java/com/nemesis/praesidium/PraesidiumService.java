@@ -5,6 +5,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
@@ -12,6 +13,9 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.os.SystemClock;
 import android.util.Log;
+
+import android.content.BroadcastReceiver;
+import android.content.IntentFilter;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -49,6 +53,21 @@ public class PraesidiumService extends Service {
 
     private final Map<String, Integer> threatConfirmationCount = new HashMap<>();
 
+    private final BroadcastReceiver passwordEventReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (DeviceAdminReceiver.ACTION_PASSWORD_FAILED.equals(intent.getAction())) {
+                int count = intent.getIntExtra(DeviceAdminReceiver.EXTRA_FAILED_COUNT, 0);
+                Log.d(TAG, "Password-failed broadcast received — count=" + count
+                        + " — triggering immediate evaluation");
+                handler.post(() -> evaluateThreats());
+            } else if (DeviceAdminReceiver.ACTION_PASSWORD_SUCCEEDED.equals(intent.getAction())) {
+                Log.d(TAG, "Password-succeeded broadcast received — resetting brute-force counter");
+                threatConfirmationCount.remove("brute_force");
+            }
+        }
+    };
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -64,6 +83,15 @@ public class PraesidiumService extends Service {
             Log.d(TAG, "Calibration complete — polling starts in " + INITIAL_EVALUATION_DELAY_MS + "ms");
             handler.postDelayed(this::startPolling, INITIAL_EVALUATION_DELAY_MS);
         }, "praesidium-calibration").start();
+
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(DeviceAdminReceiver.ACTION_PASSWORD_FAILED);
+        filter.addAction(DeviceAdminReceiver.ACTION_PASSWORD_SUCCEEDED);
+        if (android.os.Build.VERSION.SDK_INT >= 33) {
+            registerReceiver(passwordEventReceiver, filter, RECEIVER_NOT_EXPORTED);
+        } else {
+            registerReceiver(passwordEventReceiver, filter);
+        }
     }
 
     private void startPolling() {
@@ -76,6 +104,8 @@ public class PraesidiumService extends Service {
         });
     }
 
+    private int bruteForceCountAtStart = -1;
+
     private void evaluateThreats() {
         if (!calibrationComplete) return;
 
@@ -83,6 +113,12 @@ public class PraesidiumService extends Service {
         if (uptime < MIN_UPTIME_BEFORE_ACTION_MS) {
             Log.d(TAG, "Uptime " + uptime + "ms < minimum " + MIN_UPTIME_BEFORE_ACTION_MS + "ms — skipping");
             return;
+        }
+
+        if (bruteForceCountAtStart < 0) {
+            SharedPreferences p = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+            bruteForceCountAtStart = p.getInt("failed_unlock_cumulative", 0);
+            Log.d(TAG, "Brute-force counter at service start: " + bruteForceCountAtStart);
         }
 
         Set<String> current = threatDetection.detectThreats();
@@ -99,8 +135,17 @@ public class PraesidiumService extends Service {
         for (String threat : current) {
 
             if ("brute_force".equals(threat) && uptime < BRUTE_FORCE_GRACE_PERIOD_MS) {
-                Log.d(TAG, "Brute-force threat suppressed during grace period (uptime=" + uptime + "ms)");
-                continue;
+                int currentCount = prefs.getInt("failed_unlock_cumulative", 0);
+                if (currentCount <= bruteForceCountAtStart) {
+                    Log.d(TAG, "Brute-force suppressed — stale counter ("
+                            + currentCount + " <= start value " + bruteForceCountAtStart
+                            + ") during grace period");
+                    continue;
+                }
+
+                Log.d(TAG, "Brute-force allowed — counter grew from "
+                        + bruteForceCountAtStart + " to " + currentCount
+                        + " since start (live failures)");
             }
 
             int count = threatConfirmationCount.getOrDefault(threat, 0) + 1;
@@ -128,6 +173,8 @@ public class PraesidiumService extends Service {
 
                     if ("brute_force".equals(threat)) {
                         resetBruteForceCounter(true );
+                        bruteForceCountAtStart = 0;
+
                     }
 
                     executeAction(action);
@@ -232,6 +279,10 @@ public class PraesidiumService extends Service {
     public void onDestroy() {
         super.onDestroy();
         if (handler != null) handler.removeCallbacksAndMessages(null);
+        try {
+            unregisterReceiver(passwordEventReceiver);
+        } catch (IllegalArgumentException ignored) {}
+
     }
 
     @Override
