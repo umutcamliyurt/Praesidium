@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#060810"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:paddingTop="48dp"
+        android:paddingBottom="32dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:minHeight="600dp">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="28dp">
+
+            <FrameLayout
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="14dp"
+                android:background="@drawable/shield_ring">
+
+                <TextView
+                    android:text="🛡"
+                    android:textSize="28sp"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </FrameLayout>
+
+            <TextView
+                android:text="PRAESIDIUM"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="#C9A84C"
+                android:letterSpacing="0.35"
+                android:fontFamily="serif"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:text="PHYSICAL SECURITY SYSTEM"
+                android:textSize="8sp"
+                android:textColor="#3D4F6B"
+                android:letterSpacing="0.5"
+                android:gravity="center"
+                android:layout_marginTop="3dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginBottom="28dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:background="@drawable/card_background">
+
+            <View
+                android:id="@+id/statusDot"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:background="@drawable/status_dot"
+                android:layout_marginEnd="12dp"/>
+
+            <TextView
+                android:id="@+id/tvStatus"
+                android:textSize="12sp"
+                android:textColor="#8A9BB5"
+                android:letterSpacing="0.05"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:text="MANUAL ACTIONS"
+            android:textSize="8sp"
+            android:textColor="#3D4F6B"
+            android:letterSpacing="0.5"
+            android:layout_marginBottom="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:id="@+id/btnManualLock"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginBottom="7dp"
+            android:paddingStart="18dp"
+            android:paddingEnd="18dp"
+            android:background="@drawable/btn_primary"
+            android:clickable="true"
+            android:focusable="true">
+
+            <TextView
+                android:text="🔒"
+                android:textSize="14sp"
+                android:layout_marginEnd="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:text="Lock Device"
+                android:textSize="13sp"
+                android:textColor="#0A0C12"
+                android:textStyle="bold"
+                android:letterSpacing="0.05"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:text="›"
+                android:textSize="18sp"
+                android:textColor="#0A0C12"
+                android:alpha="0.6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btnManualReboot"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginBottom="7dp"
+            android:paddingStart="18dp"
+            android:paddingEnd="18dp"
+            android:background="@drawable/btn_secondary"
+            android:clickable="true"
+            android:focusable="true">
+
+            <TextView
+                android:text="↺"
+                android:textSize="16sp"
+                android:textColor="#8A9BB5"
+                android:layout_marginEnd="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:text="Reboot Device"
+                android:textSize="13sp"
+                android:textColor="#8A9BB5"
+                android:letterSpacing="0.05"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:text="›"
+                android:textSize="18sp"
+                android:textColor="#3D4F6B"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btnManualWipe"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginBottom="24dp"
+            android:paddingStart="18dp"
+            android:paddingEnd="18dp"
+            android:background="@drawable/btn_danger"
+            android:clickable="true"
+            android:focusable="true">
+
+            <TextView
+                android:text="⚠"
+                android:textSize="14sp"
+                android:textColor="#F87171"
+                android:layout_marginEnd="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:text="Wipe Device"
+                android:textSize="13sp"
+                android:textColor="#F87171"
+                android:letterSpacing="0.05"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:text="›"
+                android:textSize="18sp"
+                android:textColor="#DC2626"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#111827"
+            android:layout_marginBottom="20dp"/>
+
+        <LinearLayout
+            android:id="@+id/btnSettings"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/btn_secondary"
+            android:clickable="true"
+            android:focusable="true">
+
+            <TextView
+                android:text="⚙  THREAT DETECTION SETTINGS"
+                android:textSize="10sp"
+                android:textColor="#8A9BB5"
+                android:letterSpacing="0.25"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnActivate"
+            android:text="ACTIVATE ADMIN"
+            android:textColor="#3D4F6B"
+            android:textSize="9sp"
+            android:letterSpacing="0.25"
+            android:backgroundTint="#0D1220"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"/>
+
+    </LinearLayout>
+</ScrollView>
